@@ -120,9 +120,15 @@
 
         <div class="options">
             <div class="card">
-                <h3>Agregar Estudiante</h3>
+                <h3>➕ Agregar Estudiante</h3>
                 <p>Registra un nuevo estudiante con su nombre, matrícula y carrera.</p>
                 <a href="Controllers/addStudent.php">Ir</a>
+            </div>
+
+             <div class="card">
+                <h3>👤 Registro</h3>
+                <p>Crea una cuenta nueva para acceder al sistema.</p>
+                <a href="Controllers/registerStudent.php">Registrarse</a>
             </div>
 
             <div class="card">
