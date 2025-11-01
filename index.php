@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal del Sistema Educativo</title>
+    <style>
+        /* ----- ESTILO GENERAL ----- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #007bff, #00bcd4);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: #fff;
+            width: 90%;
+            max-width: 850px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .card {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 20px;
+            width: 240px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            background: #eef7ff;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.95em;
+            color: #444;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 14px;
+            border-radius: 5px;
+            background: #007bff;
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .card a:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            margin-top: 25px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Animación suave del fondo */
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            background: linear-gradient(-45deg, #007bff, #00bcd4, #00c6ff, #007bff);
+            background-size: 400% 400%;
+            animation: gradientMove 10s ease infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Sistema Educativo</h1>
+        <p>Bienvenido al panel principal. Aquí puedes gestionar estudiantes, ver registros y administrar tu base de datos fácilmente.</p>
+
+        <div class="options">
+            <div class="card">
+                <h3>➕ Agregar Estudiante</h3>
+                <p>Registra un nuevo estudiante con su nombre, matrícula y carrera.</p>
+                <a href="Controllers/addStudent.php">Ir</a>
+            </div>
+
+            <div class="card">
+                <h3>📋 Ver Estudiantes</h3>
+                <p>Consulta la lista de estudiantes registrados en la base de datos.</p>
+                <a href="Views/StudentsViews.php">Ver</a>
+            </div>
+
+            <div class="card">
+                <h3>📝 Editar / Eliminar</h3>
+                <p>Modifica o borra estudiantes existentes fácilmente.</p>
+                <a href="Views/StudentsViews.php">Gestionar</a>
+            </div>
+
+            <div class="card">
+                <h3>ℹ️ Acerca del Proyecto</h3>
+                <p>Proyecto educativo desarrollado en PHP y MySQL. En base al material RA2.1 CE2.1.3 Selección de Motores de Base de Datos</p>
+                <a href="#info">Más Info</a>
+            </div>
+        </div>
+
+        <footer>
+            © <?php echo date("Y"); ?> Sistema Educativo - Editado y desarrollado por <strong>Cristopher Duran</strong>
+        </footer>
+    </div>
+</body>
+</html>
