@@ -1,5 +1,6 @@
 
 <?php
+session_start();
 include "../Models/db.php";
 
 // Inicializar la variable mensaje
@@ -7,18 +8,46 @@ $mensaje = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
-    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+    $password = $_POST["password"];
+
+    if (empty($username)) { $mensaje = "<div class='error'>El usuario no puede estar vacio.</div>";  }
+    elseif (strlen($username) > 15) { $mensaje = "<div class='error'>El usuario no puede tener más de 15 caracteres.</div>"; }
+    elseif (strlen($username) < 3) { $mensaje = "<div class='error'>El usuario no puede ser tan corto.</div>"; }
+    elseif (empty($password)) {$mensaje = "<div class='error'>La contraseña no puede estar vacia.</div>"; }
+    elseif (strlen($password) > 15) { $mensaje = "<div class='error'>La contraseña puede tener mas de 15 carácteres.</div>"; }
+    elseif (strlen($password) < 5) { $mensaje = "<div class='error'>La contraseña no puede ser tan corta.</div>"; } else {
+
+        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+        $sqlCheck = "SELECT * FROM Usuarios WHERE username = ?";
+        $stmtCheck = $dbconnect->prepare($sqlCheck);
+        $stmtCheck->bind_param("s", $username);
+        $stmtCheck->execute();
+        $resultCheck = $stmtCheck->get_result();
+
+        if ($resultCheck->num_rows > 0) {
+            $mensaje =  "<div class='error'>Este usuario ya existe.<div>";
+        } else {
+            $_SESSION["new_user"] = $username;
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
     $sql = "INSERT INTO Usuarios (username, password) VALUES (?, ?)";
     $stmt = $dbconnect->prepare($sql);
-    $stmt->bind_param("ss", $username, $password);
+    $stmt->bind_param("ss", $username, $passwordHash);
     
     if ($stmt->execute()) {
-        $mensaje = "<div class='success'>Usuario registrado con éxito.</div>";
+        $mensaje = "<div class='success'>Usuario registrado con exito.<div>";
+        header("Location: afteregister.php");
+        exit();
     } else {
-        $mensaje = "<div class='error'>Un error ha ocurrido</div>";
+        $mensaje = "<div class='error'>Error al registrar intenta de nuevo.</div>";
+    }
+    $stmt->close();
+}
+$stmtCheck->close();
     }
 }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -50,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .container {
             background: #fff;
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             padding: 40px;

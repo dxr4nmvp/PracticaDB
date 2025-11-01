@@ -2,6 +2,13 @@
 // Conexión a la DB
 include "../Models/db.php";
 
+session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: ../Controllers/login.php");
+    exit();
+}
+
+
 // borrar estudiantes desde la vista
 if (isset($_GET['delete_id'])) {
     $id = (int)$_GET['delete_id'];

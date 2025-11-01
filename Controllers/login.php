@@ -18,7 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $result->fetch_assoc();
         if (password_verify($password, $user["password"])) {
             $_SESSION["user"] = $user["username"];
+            $_SESSION["login_success"] = true;
             $mensaje = "<div class='success'>✅ Iniciaste sesión con éxito.</div>";
+            header("Location: afterlogin.php");
+            exit();
             
         } else {
             $mensaje = "<div class='error'>❌ Contraseña incorrecta.</div>";

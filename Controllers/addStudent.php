@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+    exit();
+}
+
 // Conexión a la DB sistema_educativo
 include "../Models/db.php";
 
