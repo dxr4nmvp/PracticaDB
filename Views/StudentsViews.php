@@ -1,6 +1,6 @@
 <?php
 // Conexión a la DB
-include "../Controllers/db.php";
+include "../Models/db.php";
 
 // borrar estudiantes desde la vista
 if (isset($_GET['delete_id'])) {

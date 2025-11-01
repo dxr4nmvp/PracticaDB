@@ -1,6 +1,6 @@
 <?php
 // Conexión a la DB sistema_educativo
-include "db.php";
+include "../Models/db.php";
 
 /* Variables que manejan errores y los mensajes de éxito */
 $errores = [];

@@ -1,5 +1,5 @@
 <?php
-include "db.php";
+include "../Models/db.php";
 
 $errores = [];
 $exito = "";
