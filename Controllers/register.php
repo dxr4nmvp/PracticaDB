@@ -1,42 +1,32 @@
+
 <?php
-session_start();
 include "../Models/db.php";
+
+// Inicializar la variable mensaje
+$mensaje = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
-    $password = $_POST["password"];
+    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-    $sql = "SELECT * FROM Usuarios WHERE username = ?";
+    $sql = "INSERT INTO Usuarios (username, password) VALUES (?, ?)";
     $stmt = $dbconnect->prepare($sql);
-    $stmt->bind_param("s", $username);
-
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        if (password_verify($password, $user["password"])) {
-            $_SESSION["user"] = $user["username"];
-            $mensaje = "<div class='success'>✅ Iniciaste sesión con éxito.</div>";
-            
-        } else {
-            $mensaje = "<div class='error'>❌ Contraseña incorrecta.</div>";
-        }
-
+    $stmt->bind_param("ss", $username, $password);
+    
+    if ($stmt->execute()) {
+        $mensaje = "<div class='success'>Usuario registrado con éxito.</div>";
     } else {
-        $mensaje = "<div class='error'>❌ No se encontró este usuario.</div>";
+        $mensaje = "<div class='error'>Un error ha ocurrido</div>";
     }
-    $stmt->close();
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+    <title>Registro de Usuario</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -206,20 +196,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="container">
-        <h2>🔒 Iniciar Sesión</h2>
+        <h2>🔐 Registro</h2>
         
-        <?php if (isset($mensaje)): ?>
+        <?php if ($mensaje): ?>
             <?php echo $mensaje; ?>
         <?php endif; ?>
 
         <form method="POST">
             <input type="text" name="username" placeholder="Usuario" required>
             <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Entrar</button>
+            <button type="submit">Registrarse</button>
         </form>
 
         <div class="nav-links">
-            <a href="registerStudent.php">¿No tienes cuenta? Regístrate</a>
+            <a href="login.php">¿Ya tienes cuenta? Inicia sesión</a>
             <a href="../index.php">Volver al inicio</a>
         </div>
     </div>
