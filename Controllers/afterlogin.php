@@ -6,7 +6,7 @@ if (isset($_SESSION["login_success"]) && isset($_SESSION["user"])) {
     $usuario = $_SESSION["user"];
     $mensaje = "✅ ¡Bienvenido de nuevo, {$usuario}!";
     $tipo = "success";
-    unset($_SESSION["login_success"]); // Limpiar la bandera
+    unset($_SESSION["login_success"]); // Limpiar   la bandera
 } else {
     header("Location: login.php");
     exit();

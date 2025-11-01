@@ -69,22 +69,21 @@ if (!isset($_SESSION["user"])) {
         }
     </style>
     <script>
-        // Contador regresivo y redirección
-        window.onload = function() {
-            let seconds = 5;
-            const countdownElement = document.getElementById('countdown');
+    window.onload = function() {
+        let seconds = 5;
+        const countdownElement = document.getElementById('countdown'); // Corregido aquí
+        
+        const interval = setInterval(function() {
+            seconds--;
+            countdownElement.textContent = `Redirigiendo en ${seconds} segundos...`;
             
-            const interval = setInterval(function() {
-                seconds--;
-                countdownElement.textContent = `Redirigiendo en ${seconds} segundos...`;
-                
-                if (seconds <= 0) {
-                    clearInterval(interval);
-                    window.location.href = '../index.php';
-                }
-            }, 1000);
-        }
-    </script>
+            if (seconds <= 0) {
+                clearInterval(interval);
+                window.location.href = '../index.php';
+            }
+        }, 1000);
+    }
+</script>
 </head>
 <body>
     <div class="alert <?php echo $tipo; ?>">

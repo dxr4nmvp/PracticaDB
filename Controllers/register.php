@@ -9,6 +9,7 @@ $mensaje = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $role = 'estudiante';
 
     if (empty($username)) { $mensaje = "<div class='error'>El usuario no puede estar vacio.</div>";  }
     elseif (strlen($username) > 15) { $mensaje = "<div class='error'>El usuario no puede tener más de 15 caracteres.</div>"; }
@@ -30,9 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["new_user"] = $username;
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO Usuarios (username, password) VALUES (?, ?)";
+    $sql = "INSERT INTO Usuarios (username, password, role) VALUES (?, ?, ?)";
     $stmt = $dbconnect->prepare($sql);
-    $stmt->bind_param("ss", $username, $passwordHash);
+    $stmt->bind_param("sss", $username, $passwordHash, $role);
     
     if ($stmt->execute()) {
         $mensaje = "<div class='success'>Usuario registrado con exito.<div>";

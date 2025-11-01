@@ -1,4 +1,5 @@
 <?php
+echo password_hash("admin2025clave", PASSWORD_DEFAULT);
 session_start(); // Agregar al inicio del archivo
 ?>
 
@@ -168,6 +169,7 @@ session_start(); // Agregar al inicio del archivo
             <div class="user-welcome">
                 <span class="user-icon">👋</span>
                 <p>¡Hola, <strong><?php echo htmlspecialchars($_SESSION["user"]); ?></strong>!</p>
+                <p>Iniciaste sesión como: <strong><?php echo htmlspecialchars($_SESSION["role"]); ?></strong>!</p>
             </div>
         <?php endif; ?>
 
